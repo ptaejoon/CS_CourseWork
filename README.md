@@ -13,8 +13,9 @@ Algorithm :
 	Project 2 : Compare time among sorting algorithms and make optimized sorting that is fastest in every cases  
 	Project 3 : Make Compressing and Decompressing algorithm using Huffman code.  
   
-Assembly : 
-	4 Homeworks writing assembly code.  
+Assembly :  
+  
+	4 Homeworks written as assembly code.  
   
 CS_Experiment1:  
 	  
@@ -26,6 +27,7 @@ CS_Experiment1:
 	week 12-14 : Draw random maze and solve it using DFS,BFS. Show the result through MFC.  
   
 C_Programming:  
+  
 	24 codes for Lab class.  
 	2 Projects 
 	  
@@ -40,6 +42,7 @@ Data_Structure:
 	HW4 : Matrix Multiplication  
   
 Graphics and Operating System:  
+  
 	Learned in Monash University,Melbourne,Australia as exchange student druing 07.2016~12.2016.  
 	2 Projects in Graphics and 3 Lab Class Assignment in OS.  
 	  	
