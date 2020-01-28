@@ -37,6 +37,7 @@ Data_Structure:
 Graphics and Operating System:  
 	Learned in Monash University,Melbourne,Australia as exchange student druing 07.2016~12.2016.  
 	2 Projects in Graphics and 3 Lab Class Assignment in OS.  
+	  	
 	Graphics:  
 		Project 1: Draw candlestick chart using 'Processing'  
 		Project 2: Pseudo-colouring of 3D models using JOGL  
