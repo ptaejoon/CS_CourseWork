@@ -1,0 +1,23 @@
+프로그램 설치 방법. ( Linux Machine 기준 )
+1. 20151550.c , 20151550.h, opcode.txt, Makefile, p2.c , 그리고 테스트할 asm 파일을  같은 파일에 넣는다.
+2. command line 상에서 파일을 넣은 디렉토리로 이동한다.
+3. make 입력
+4. 20151550.out 생성 확인
+
+20151550.out 실행방법
+1. 20151550.out 가 있는 디렉토리로 이동
+2. opcode.txt 가 같은 디렉토리에 있어야 한다.
+3. assemble 할 asm 파일도 같은 디렉토리에 있어야 한다.
+4. Command Line에 ./20151550.out 입력
+5. sicsim> 이라는 커맨드라인이 뜨면 실행에 성공한 것이다.
+
+SIC/XE Machine 사용방법
+1. Help 명령어 입력하여 실행 가능한 명령어 확인
+2. 사용하고자 하는 명령어 입력. (Help 양식에 따라 입력)
+
+유의사항
+1. opcode mnemonic은 Opcode의 명령어를 입력하는 뜻이다. (ex. opcode ADD)
+2. mnemonic에 해당하는 내용은 opcodelist를 통해 확인할 수 있다.
+3. Help에서 []에 포함된 것은 생략가능하단 뜻이다. 특히, dump의 경우 start, end가 존재하지 않아도 된다.
+4. symbol 명령어는 가장 최근의 assemble을 시행한 asm 파일의 symbol table을 보여주는 기능이다. 따라서 assemble을 성공적으로 실행한 적이 없을 경우 출력할 수 없다.
+

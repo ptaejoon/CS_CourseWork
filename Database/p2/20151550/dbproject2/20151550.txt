@@ -1,0 +1,132 @@
+CREATE TABLE `delivery`.`customer` (`customer_id` INT NOT NULL, `address` VARCHAR(100) NULL, `name` VARCHAR(30) NOT NULL, PRIMARY KEY (`customer_id`));
+
+CREATE TABLE `delivery`.`delivery` (`name` VARCHAR(20) NOT NULL,PRIMARY KEY (`name`),UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE);
+
+CREATE TABLE `delivery`.`charge_info` (`package_type` VARCHAR(10) NOT NULL,`timeliness` VARCHAR(30) NOT NULL,`weight` DECIMAL(10,3) NOT NULL,`charge` DECIMAL(15,3) NOT NULL,PRIMARY KEY (`package_type`, `timeliness`, `weight`));
+
+CREATE TABLE `delivery`.`product` (`product_id` INT NOT NULL,`address` VARCHAR(100) NOT NULL,`caution` VARCHAR(30) NULL,`eta` TIMESTAMP NOT NULL,`order_date` TIMESTAMP NOT NULL,`pay_type` VARCHAR(10) NOT NULL,`product_name` VARCHAR(100) NOT NULL,`recipient_name` VARCHAR(30) NOT NULL,`customer_id` INT NOT NULL,`package_type` VARCHAR(10) NOT NULL,`timeliness` VARCHAR(30) NOT NULL,`weight` DECIMAL(10,3) NOT NULL,  PRIMARY KEY (`product_id`),  INDEX `customer_id_idx` (`customer_id` ASC) VISIBLE,  INDEX `package_type_idx` (`package_type` ASC, `timeliness` ASC, `weight` ASC) VISIBLE,  CONSTRAINT `charge_info_key`    FOREIGN KEY (`package_type` , `timeliness` , `weight`)    REFERENCES `delivery`.`charge_info` (`package_type` , `timeliness` , `weight`)    ON DELETE CASCADE ON UPDATE NO ACTION,CONSTRAINT `customer_key` FOREIGN KEY (`customer_id`)    REFERENCES `delivery`.`customer` (`customer_id`)    ON DELETE CASCADE    ON UPDATE NO ACTION);
+
+CREATE TABLE `delivery`.`delivery_record` (  `product_id` INT NOT NULL,  `name` VARCHAR(20) NOT NULL,  `arrival_time` TIMESTAMP NULL,  `start_time` TIMESTAMP NOT NULL,  PRIMARY KEY (`product_id`, `name`),  INDEX `delivery_key_idx` (`name` ASC) VISIBLE,  CONSTRAINT `delivery_key`    FOREIGN KEY (`name`)    REFERENCES `delivery`.`delivery` (`name`)    ON DELETE CASCADE    ON UPDATE NO ACTION,  CONSTRAINT `product_key`    FOREIGN KEY (`product_id`)    REFERENCES `delivery`.`product` (`product_id`)    ON DELETE CASCADE    ON UPDATE NO ACTION);
+
+use delivery;
+insert into delivery values ('recipient');
+insert into delivery values ('truck 1721');
+insert into delivery values ('truck 0733');
+insert into delivery values ('truck 2277');
+insert into delivery values ('ship 3084');
+insert into delivery values ('ship 0005');
+insert into delivery values ('ship 2783');
+insert into delivery values ('center 0001');
+insert into delivery values ('center 0004');
+insert into delivery values ('center 0076');
+insert into delivery values ('port 0021');
+insert into delivery values ('port 0321');
+insert into delivery values ('port 1000');
+insert into delivery values ('front 0020');
+insert into delivery values ('front 3275');
+insert into delivery values ('front 5789');
+insert into customer values (1,'addressofcustomer1','customername1');
+insert into customer values (2,'addressofcustomer2','customername2');
+insert into customer values (3,'addressofcustomer3','customername3');
+insert into customer values (4,'addressofcustomer4','customername4');
+insert into customer values (5,'addressofcustomer5','customername5');
+insert into customer values (6,'addressofcustomer6','customername6');
+insert into customer values (7,NULL,'customername7');
+insert into customer values (8,'addressofcustomer8','customername8');
+insert into customer values (9,'addressofcustomer9','customername9');
+insert into customer values (10,'addressofcustomer10','customername10');
+insert into customer values (11,'addressofcustomer11','customername11');
+insert into customer values (12,'addressofcustomer12','customername12');
+insert into customer values (13,'addressofcustomer13','customername13');
+insert into customer values (14,'addressofcustomer14','customername14');
+insert into customer values (15,NULL,'customername6');
+insert into charge_info values ('envelope','overnight',50.5,6.8);
+insert into charge_info values ('envelope','two day',30,3.5);
+insert into charge_info values ('envelope','a month',100,7);
+insert into charge_info values ('envelope','general',20,2.5);
+insert into charge_info values ('box1','overnight',100,12.2);
+insert into charge_info values ('box1','a week',120,12.8);
+insert into charge_info values ('box2','two week',500,30);
+insert into charge_info values ('box3','general',1050.2,42.5);
+insert into charge_info values ('box3','general',1060.5,43.8);
+
+insert into charge_info values ('box1','overnight',105.5,12.8);
+insert into charge_info values ('box2','a week',420,26.8);
+insert into charge_info values ('box3','two week',3060.5,80.8);
+insert into charge_info values ('box1','a month',166.5,13.8);
+insert into charge_info values ('box2','three day',1060.5,43.8);
+insert into charge_info values ('box3','general',2460.5,56.8);
+insert into product values (1,'destinationofproduct1',NULL,'2020-06-05 23:00:00','2020-06-05 13:50:20','creditcard','pr1','rec1',1,'envelope','overnight',50.5);
+insert into product values (2,'destinationofproduct2','fragile','2020-04-05 12:00:00','2020-04-03 13:50:20','prepaid','pr2','rec1',2,'envelope','two day',30);
+insert into product values (3,'destinationofproduct3','need care','2020-06-20 10:00:00','2020-05-21 09:50:20','creditcard','pr3','rec1',3,'envelope','a month',100);
+insert into product values (4,'destinationofproduct4','fragile','2020-05-30 12:00:00','2020-05-10 13:50:20','prepaid','pr4','rec2',3,'envelope','general',20);
+insert into product values (5,'destinationofproduct5',NULL,'2020-06-17 23:00:00','2019-06-17 09:50:20','ondelivery','pr5','rec3',3,'box1','overnight',100);
+insert into product values (6,'destinationofproduct6',NULL,'2020-06-15 12:00:00','2019-06-14 12:50:20','creditcard','pr6','rec4',4,'box1','overnight',100);
+insert into product values (7,'destinationofproduct7',NULL,'2020-05-22 12:00:00','2020-04-29 10:50:20','creditcard','pr7','rec5',4,'box1','a week',120);
+insert into product values (8,'destinationofproduct8',NULL,'2020-02-10 12:00:00','2020-01-01 09:50:20','creditcard','pr8','rec5',2,'box2','two week',500);
+insert into product values (9,'destinationofproduct9',NULL,'2019-07-07 12:00:00','2019-07-06 13:50:20','creditcard','pr9','rec6',5,'envelope','overnight',50.5);
+insert into product values (10,'destinationofproduct10',NULL,'2019-03-01 12:00:00','2019-01-29 13:50:20','creditcard','pr10','rec6',6,'box3','general',1050.2);
+insert into product values (11,'destinationofproduct11',NULL,'2019-07-29 12:00:00','2019-06-01 13:50:20','creditcard','pr11','rec6',7,'box3','general',1060.5);
+insert into product values (12,'destinationofproduct12',NULL,'2020-06-29 12:00:00','2020-06-20 12:50:20','creditcard','pr12','rec12',8,'box3','two week',3060.5);
+insert into product values (13,'destinationofproduct13',NULL,'2020-06-29 12:00:00','2020-06-11 16:50:20','creditcard','pr13','rec13',9,'box1','a month',166.5);
+insert into product values (14,'destinationofproduct14',NULL,'2020-06-26 12:00:00','2020-06-23 11:50:20','creditcard','pr14','rec14',10,'box2','three day',1060.5);
+insert into product values (15,'destinationofproduct15',NULL,'2020-06-29 12:00:00','2020-06-20 10:50:20','creditcard','pr15','rec15',11,'box3','general',2460.5);
+insert into product values (16,'destinationofproduct14',NULL,'2020-06-29 12:00:00','2020-06-25 09:50:20','creditcard','pr16','rec16',12,'box2','a week',420);
+insert into product values (17,'destinationofproduct15',NULL,'2020-06-25 23:00:00','2020-06-25 06:50:20','creditcard','pr17','rec17',13,'box1','overnight',105.5);
+
+insert into delivery_record values (1,'front 5789','2020-06-05 16:00:00','2020-06-05 13:50:20' );
+insert into delivery_record values (1,'recipient',NULL,'2020-06-05 16:00:00' );
+-- 제때 도착
+
+insert into delivery_record values (2,'truck 0733','2020-04-03 23:00:00','2020-04-03 13:50:20' );
+insert into delivery_record values (2,'center 0001','2020-04-05 05:00:00','2020-04-03 23:00:00' );
+insert into delivery_record values (2,'truck 1721','2020-04-05 09:00:00','2020-04-05 05:00:00' );
+insert into delivery_record values (2,'recipient',NULL,'2020-04-05 09:00:00' );
+-- 제때 도착
+
+insert into delivery_record values (3,'truck 2277','2020-05-22 12:00:00','2020-05-21 13:50:20' );
+insert into delivery_record values (3,'center 0004','2020-05-27 09:00:00','2020-05-22 12:00:00' );
+insert into delivery_record values (3,'truck 1721',NULL,'2020-05-27 09:00:00' );
+
+insert into delivery_record values (4,'truck 2277','2020-05-22 12:00:00','2020-05-21 13:50:20' );
+insert into delivery_record values (4,'port 0021','2020-05-23 09:00:00','2020-05-22 12:00:00' );
+insert into delivery_record values (4,'ship 3084','2020-05-26 09:00:00','2020-05-23 09:00:00' );
+insert into delivery_record values (4,'center 0004','2020-05-27 09:00:00','2020-05-26 09:00:00' );
+insert into delivery_record values (4,'truck 1721',NULL,'2020-05-27 09:00:00' );
+-- 2020 5 27 truck 1724 사고 발생
+insert into delivery_record values (5,'truck 2277','2020-06-17 16:00:00','2020-06-17 09:50:20' );
+insert into delivery_record values (5,'recipient',NULL,'2020-06-17 16:00:00' );
+-- 제때 도착
+insert into delivery_record values (6,'front 0020','2020-06-14 23:00:00','2020-06-14 12:50:20' );
+insert into delivery_record values (6,'truck 1721','2020-06-15 13:00:00','2020-06-14 23:00:00' );
+insert into delivery_record values (6,'recipient',NULL,'2020-06-15 13:00:00' );
+-- 늦음
+insert into delivery_record values (7,'truck 1721','2020-04-30 00:10:00','2020-04-29 10:50:20' );
+insert into delivery_record values (7,'center 0076','2019-05-15 13:00:00','2019-04-30 00:10:00' );
+insert into delivery_record values (7,'truck 1721','2020-05-16 04:10:00','2020-05-15 13:50:20' );
+insert into delivery_record values (7,'recipient',NULL,'2020-05-16 04:10:00' );
+-- 제때 도착
+insert into delivery_record values (8,'front 0020','2020-01-02 23:00:00','2020-01-01 09:50:20' );
+insert into delivery_record values (8,'port 1000','2020-01-03 04:00:00','2020-01-02 23:00:00' );
+insert into delivery_record values (8,'ship 0005','2020-02-08 04:00:00','2020-01-03 04:00:00' );
+insert into delivery_record values (8,'port 0021','2020-02-09 04:00:00','2020-02-08 04:00:00' );
+insert into delivery_record values (8,'truck 1721','2020-02-09 23:00:00','2020-02-09 04:00:00' );
+insert into delivery_record values (8,'recipient',NULL,'2020-02-09 23:00:00' );
+-- 제때 도착
+insert into delivery_record values (9,'front 5789','2019-07-07 04:00:00','2019-07-06 13:50:20');
+insert into delivery_record values (9,'truck 2277','2019-07-07 19:00:00','2019-07-07 04:00:00' );
+insert into delivery_record values (9,'recipient',NULL,'2019-07-07 19:00:00' );
+-- 늦음
+insert into delivery_record values (10,'front 0020','2019-01-29 23:00:00','2019-01-29 09:50:20' );
+insert into delivery_record values (10,'port 1000','2019-02-01 04:00:00','2019-01-29 23:00:00' );
+insert into delivery_record values (10,'ship 0005','2019-02-25 04:00:00','2019-02-01 04:00:00' );
+insert into delivery_record values (10,'port 0021','2019-02-28 04:00:00','2019-02-25 04:00:00' );
+insert into delivery_record values (10,'truck 1721','2019-02-28 11:00:00','2019-02-28 04:00:00' );
+insert into delivery_record values (10,'recipient',NULL,'2019-02-28 11:00:00' );
+
+insert into delivery_record values (11,'front 0020','2019-06-02 23:00:00','2019-06-01 13:50:20' );
+insert into delivery_record values (11,'port 1000','2019-06-04 04:00:00','2019-06-02 23:00:00' );
+insert into delivery_record values (11,'ship 2783','2019-07-25 04:00:00','2019-06-04 04:00:00' );
+insert into delivery_record values (11,'port 0321','2019-07-28 23:00:00','2019-07-25 04:00:00' );
+insert into delivery_record values (11,'truck 1721','2019-07-29 04:00:00','2019-07-28 23:00:00' );
+insert into delivery_record values (11,'recipient',NULL,'2019-07-29 04:00:00' );
